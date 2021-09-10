@@ -32,8 +32,8 @@ namespace TestEx3b
                               (string)el.Element("Name"),
                               Convert.ToDouble((string)el.Element("Value"))));
             }
-           
-           Console.WriteLine("1 Норвежская крона равна " + ConvertValute(valuteDic["NOK"], valuteDic["HUF"]).ToString("00.0000") + " " + valuteDic["HUF"].Name);
+
+            Console.WriteLine($"1 Норвежская крона равна {ConvertValute(valuteDic["NOK"], valuteDic["HUF"]).ToString("00.0000")} {valuteDic["HUF"].Name}");
         }
 
         static public double ConvertValute(Valute CharCodeFrom, Valute CharCodeIn)
@@ -42,33 +42,3 @@ namespace TestEx3b
         }
     }
 }
-
-//List<Valute> valutes = new List<Valute>();
-//foreach (XElement el in tests)
-//{
-//    valutes.Add(
-//        new Valute(
-//            (string)el.Element("CharCode"), 
-//            Convert.ToInt32((string)el.Element("Nominal")), 
-//            (string)el.Element("Name"), 
-//            Convert.ToDouble((string)el.Element("Value"))
-//        )
-//    );
-
-//Console.WriteLine((string)el.Element("CharCode"));
-//Console.WriteLine((string)el.Element("Nominal"));
-//Console.WriteLine((string)el.Element("Name"));
-//Console.WriteLine((string)el.Element("Value"));
-//Console.WriteLine("--------------");
-//}
-
-//foreach (var v in valutes)
-//{
-//    Console.WriteLine(v.CharCode);
-//    Console.WriteLine(v.Nominal);
-//    Console.WriteLine(v.Name);
-//    Console.WriteLine(v.Value);
-//    Console.WriteLine("--------------");
-//}
-
-//Console.WriteLine(valutes.ElementAt(1).Value / valutes.ElementAt(0).Value * valutes.ElementAt(1).Nominal);
