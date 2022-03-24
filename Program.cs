@@ -1,14 +1,26 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace TestEx3b
 {
+
+    class Valute
+    {
+        public Valute(int Nominal, string Name, double Value)
+        {
+            this.Nominal = Nominal;
+            this.Name = Name;
+            this.Value = Value;
+        }
+
+        public int Nominal { get; set; }
+        public string Name { get; set; }
+        public double Value { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -22,23 +34,24 @@ namespace TestEx3b
 
             IEnumerable<XElement> tests =
                 from el in root.Elements("Valute")
-                where (string)el.Element("Name") == "Венгерских форинтов" || (string)el.Element("Name") == "Норвежских крон"
+                where (string)el.Element("Name") == "Венгерских форинтов" || (string)el.Element("Name") == "Норвежская крона"
                 select el;
 
             Dictionary<string, Valute> valuteDic = new Dictionary<string, Valute>();
             foreach(XElement el in tests)
             {
                 valuteDic.Add((string)el.Element("CharCode"), new Valute(Convert.ToInt32((string)el.Element("Nominal")),
-                              (string)el.Element("Name"),
-                              Convert.ToDouble((string)el.Element("Value"))));
+                                                                         (string)el.Element("Name"), 
+                                                                         Convert.ToDouble((string)el.Element("Value"))
+                                                                        ));
             }
 
-            Console.WriteLine($"1 Норвежская крона равна {ConvertValute(valuteDic["NOK"], valuteDic["HUF"]).ToString("00.0000")} {valuteDic["HUF"].Name}");
+            Console.WriteLine($"{valuteDic["NOK"].Nominal} {valuteDic["NOK"].Name} равна {ConvertValute(valuteDic["NOK"], valuteDic["HUF"]):0.0000} {valuteDic["HUF"].Name}");
         }
 
         static public double ConvertValute(Valute CharCodeFrom, Valute CharCodeIn)
         {
-            return CharCodeFrom.Value / CharCodeIn.Value * CharCodeFrom.Nominal;
+            return CharCodeFrom.Value / CharCodeIn.Value * CharCodeIn.Nominal;
         }
     }
 }
